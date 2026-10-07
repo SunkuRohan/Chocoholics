@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chocoholics – Chocolate gift hampers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1E2D0;--ink:#2A1812;--rasp:#7B4528;--pist:#C5DDA8;--card:#FBF4EA;--mut:#6b5446;--on-rasp:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E1410;--ink:#F1E2D0;--rasp:#D9A57A;--pist:#8FB36B;--card:#2C1F18;--mut:#cdb8a6;--on-rasp:#2A1812}}
+:root[data-theme="dark"]{--bg:#1E1410;--ink:#F1E2D0;--rasp:#D9A57A;--pist:#8FB36B;--card:#2C1F18;--mut:#cdb8a6;--on-rasp:#2A1812}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'DM Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bagel Fat One','DM Sans',system-ui,sans-serif;font-weight:400;margin:0;line-height:1}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rasp);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+nav b{font-family:'Bagel Fat One',sans-serif;font-weight:400;font-size:24px;color:var(--rasp)}
+.btn{font:700 15px 'DM Sans',sans-serif;border:0;border-radius:999px;padding:12px 22px;background:var(--rasp);color:var(--on-rasp);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.hero{padding:36px 0 56px}
+.hero h1{font-size:clamp(56px,14vw,148px);color:var(--rasp);letter-spacing:-.02em;transform:rotate(-2deg);transform-origin:left;animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{transform:rotate(-8deg) scale(.85);opacity:0}}
+.hero p{max-width:46ch;font-size:19px;margin:22px 0 26px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.strip{background:var(--pist);color:#2A1210;padding:14px 0;font-weight:700}
+.strip .wrap{display:flex;gap:10px 32px;flex-wrap:wrap}
+section{padding:56px 0}
+h2{font-size:clamp(32px,6vw,52px);margin-bottom:8px}
+.sub{color:var(--mut);margin:0 0 28px;max-width:56ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{background:var(--card);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card svg{display:block;width:100%;height:auto;border-radius:14px}
+.card h3{font-size:24px}
+.card p{margin:0;color:var(--mut);flex:1}
+.card .foot{display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:700;font-size:20px}
+.order{background:var(--card);border-radius:22px;padding:24px;max-width:560px}
+.order ul{list-style:none;padding:0;margin:0 0 14px}
+.order li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.order li button{background:none;border:0;color:var(--rasp);font-weight:700;cursor:pointer}
+.empty{color:var(--mut)}
+label{display:block;font-weight:500;margin:12px 0 4px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid transparent;border-radius:12px;padding:11px 14px}
+input:focus,textarea:focus{border-color:var(--rasp);outline:0}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:18px;margin:6px 0 4px}
+footer{padding:36px 0;color:var(--mut);font-size:14px}
+@media(prefers-reduced-motion:reduce){.hero h1{animation:none}}
+
+nav .links{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+nav a.l{text-decoration:none;font-weight:500;padding:8px 12px;border-radius:999px}
+nav a.l[aria-current="page"]{background:var(--pist);color:#2A1210}
+.card{position:relative;cursor:pointer;transition:transform .15s}
+.card:hover{transform:translateY(-6px)}
+.card svg{transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+.card:hover svg{transform:scale(1.05) rotate(-1.5deg)}
+.ch,.bow{transform-box:fill-box;transform-origin:center}
+.card:hover .ch{animation:hop .55s calc(var(--i)*55ms) ease both}
+.card:hover .bow{animation:wig .7s ease both}
+@keyframes hop{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-9px) scale(1.14)}}
+@keyframes wig{0%,100%{transform:rotate(0) scale(1)}30%{transform:rotate(-16deg) scale(1.2)}65%{transform:rotate(10deg) scale(1.1)}}
+.brand span{display:inline-block}
+.brand:hover span{animation:bounce .55s calc(var(--i)*45ms) ease both}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-.28em) rotate(-7deg)}70%{transform:translateY(.04em) rotate(3deg)}}
+.card h3 a{text-decoration:none}
+.card .stretch::after{content:"";position:absolute;inset:0;border-radius:22px}
+.card .stretch:focus-visible{outline:none}
+.card:focus-within{outline:3px solid var(--rasp);outline-offset:3px}
+.card .btn{position:relative;z-index:1}
+.card .qty{position:relative;z-index:1;margin:0}
+.qin{width:56px;text-align:center;padding:8px 4px;font-weight:700;-moz-appearance:textfield}
+.qin::-webkit-outer-spin-button,.qin::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+@media(prefers-reduced-motion:reduce){.card,.card svg{transition:none}.card:hover svg,.card:hover{transform:none}.card:hover .ch,.card:hover .bow,.brand:hover span{animation:none}}
+.crumb{display:inline-block;margin:6px 0 18px;color:var(--mut)}
+.pdp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;align-items:start}
+.pdp h1{font-size:clamp(34px,6vw,56px);margin-bottom:10px}
+.pdp ul{padding-left:20px;margin:12px 0 20px}
+.qty{display:inline-flex;align-items:center;gap:10px;margin-right:12px}
+.qty button{width:34px;height:34px;border-radius:50%;border:0;background:var(--card);color:var(--ink);font:700 18px 'DM Sans';cursor:pointer}
+.stars{color:var(--rasp);letter-spacing:2px}
+.rev{background:var(--card);border-radius:18px;padding:18px 20px}
+.rev p{margin:6px 0}
+.rev small{color:var(--mut)}
+.stack{display:grid;gap:14px;max-width:720px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:start}
+select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid transparent;border-radius:12px;padding:11px 14px}
+.order li .qty{margin:0}
+.ok{color:var(--mut)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cl{font-weight:700;margin-right:4px}
+.chip{font:500 14px 'DM Sans',sans-serif;border:0;border-radius:999px;padding:8px 14px;background:var(--card);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--rasp);color:var(--on-rasp)}
+.tag{color:var(--mut)}
+p.tag{margin:0 0 8px}
+#filters{margin-bottom:20px}
+.build{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:start}
+.ing{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.bar{height:10px;border-radius:99px;background:var(--bg);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--rasp)}
+.order li{flex-wrap:wrap;align-items:center}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(30,18,12,.55)}
+.mbox{background:var(--card);color:var(--ink);border-radius:22px;padding:24px;max-width:420px;width:100%;animation:mpop .2s ease}
+.mbox h3{font-size:26px;margin-bottom:8px}
+.mbox p{margin:0 0 20px;color:var(--mut)}
+.mrow{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+@keyframes mpop{from{transform:scale(.94);opacity:0}}
+@media(prefers-reduced-motion:reduce){.mbox{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="#/" style="text-decoration:none"><b class="brand">Chocoholics</b></a>
+    <div class="links"><a class="l" href="#/" data-r="home">Hampers</a><a class="l" href="#/build" data-r="build">Build your own</a><a class="l" href="#/reviews" data-r="reviews">Reviews</a><a class="l" href="#/login" id="navacct" data-r="account">Log in</a><a class="btn" href="#/cart" id="navcart">Cart (0)</a></div></nav>
+</div>
+<main id="app"></main>
+<footer><div class="wrap">© Chocoholics. Made with love and a lot of cocoa.</div></footer>
+
+<script>
+// Set your WhatsApp number (country code + number, digits only) to receive orders.
+var WHATSAPP = "910000000000";
+var HAMPERS = [
+  {id:"classic",name:"Classic Cocoa Box",cat:"Birthday",type:"Chocolate",desc:"Milk, dark and hazelnut chocolates, 12 pieces.",price:799,c:["#5a2a1c","#8a4a2f","#c68a5c"],items:["6 milk chocolates","3 dark chocolates","3 hazelnut pralines","Handwritten card"]},
+  {id:"choconut",name:"Choco-Nut Party Box",cat:"Birthday",type:"Mixed",desc:"Chocolate-coated almonds, hazelnut truffles and roasted peanuts.",price:1099,c:["#6b3a24","#c98a4b","#e8d3a2"],items:["150 g chocolate-coated almonds","6 hazelnut truffles","150 g roasted peanuts","Handwritten card"]},
+  {id:"dark",name:"Dark Side Hamper",cat:"Anniversary",type:"Chocolate",desc:"70% and 85% bars, cocoa nibs and a dark truffle set.",price:1299,c:["#2a1210","#4a2420","#7a3b30"],items:["One 70% bar and one 85% bar","Cocoa nibs pouch","6 dark truffles","Handwritten card"]},
+  {id:"kaju",name:"Kaju Celebration Box",cat:"Anniversary",type:"Nuts",desc:"Plain, pepper-roasted and chocolate-coated cashews.",price:1499,c:["#a8793f","#e8d3a2","#5a2a1c"],items:["200 g plain cashews (kaju)","150 g pepper-roasted cashews","150 g chocolate-coated cashews","Handwritten card"]},
+  {id:"annivmix",name:"Dark Chocolate and Dry Fruit Box",cat:"Anniversary",type:"Mixed",desc:"Dark chocolate squares with figs, dates and almonds.",price:1799,c:["#3a2218","#c98a4b","#8a5a3a"],items:["12 dark chocolate squares","150 g figs (anjeer)","150 g dates (khajoor)","150 g almonds","Handwritten card"]},
+  {id:"festive",name:"Festive Mithai Mix",cat:"Festival",type:"Mixed",desc:"Chocolate barks with nuts, dates and saffron, plus truffles.",price:1599,c:["#8a3b1f","#e0a030","#5a2a1c"],items:["Almond and date chocolate bark","Saffron white chocolate bark","8 assorted truffles","Reusable festive box"]},
+  {id:"almondpista",name:"Almond and Pista Box",cat:"Festival",type:"Nuts",desc:"Whole almonds, shelled pistachios and cashews in a keepsake box.",price:1399,c:["#6b4a2a","#9bb36b","#e8d3a2"],items:["250 g almonds (badam)","200 g pistachios (pista)","200 g cashews (kaju)","Reusable gift box"]},
+  {id:"royal",name:"Royal Dry Fruit Box",cat:"Festival",type:"Dry fruits",desc:"Almonds, cashews, raisins, dates and figs in separate compartments.",price:1899,c:["#7a3b30","#c98a4b","#e0c27a"],items:["200 g almonds","200 g cashews","150 g raisins","150 g dates","150 g figs"]},
+  {id:"corp",name:"Office Thank-you Box",cat:"Office",type:"Chocolate",desc:"Individually wrapped squares, ideal for teams. Logo card available.",price:1199,c:["#3a2a20","#c5dda8","#8a4a2f"],items:["24 wrapped chocolate squares","Custom thank-you card","Ships ready to share"]},
+  {id:"peanut",name:"Roasted Peanut Crunch Box",cat:"Office",type:"Nuts",desc:"Salted, masala and honey-roasted peanuts for the team.",price:599,c:["#8a5a2b","#d9b26f","#e8d3a2"],items:["200 g salted roasted peanuts","200 g honey-roasted peanuts","150 g masala peanuts"]},
+  {id:"snack",name:"Healthy Desk Snack Box",cat:"Office",type:"Dry fruits",desc:"Almonds, walnuts, cranberries and raisins for desk drawers.",price:1299,c:["#6b3a24","#a04a3a","#e0c27a"],items:["200 g almonds","150 g walnuts (akhrot)","150 g dried cranberries","150 g raisins"]},
+  {id:"lux",name:"Chocoholic Grand Hamper",cat:"Wedding",type:"Mixed",desc:"Our largest box: truffles, bars, hot chocolate mix and a ribbon-tied keepsake.",price:2999,c:["#7b4528","#2a1210","#c5dda8"],items:["16 truffles","3 signature bars","Hot chocolate mix","Ribbon-tied keepsake box"]},
+  {id:"favours",name:"Wedding Favour Set of 10",cat:"Wedding",type:"Mixed",desc:"Ten small boxes, each with two chocolates and a handful of nuts.",price:4499,c:["#8a4a2f","#e0c27a","#c5dda8"],items:["10 small gift boxes","2 chocolates and 30 g mixed nuts in each","Custom name tags on request"]},
+  {id:"kids",name:"Sprinkle Party Box",cat:"Kids",type:"Chocolate",desc:"Chocolate lollies, coins, sprinkled bites and a mini mug.",price:999,c:["#c0743a","#7cb6e8","#f2c94c"],items:["4 chocolate lollies","10 chocolate coins","Sprinkled bites","Mini mug"]}
+];
+var CATS=["All","Birthday","Anniversary","Festival","Office","Wedding","Kids"],TYPES=["All","Chocolate","Nuts","Dry fruits","Mixed"];
+var filt={cat:"All",type:"All"};
+// Sample ingredient prices per 100 g: replace with your real prices.
+var ING=[
+  {id:"milk",n:"Milk chocolate",g:"Chocolates",p:180},{id:"darkc",n:"Dark chocolate",g:"Chocolates",p:220},{id:"praline",n:"Hazelnut praline",g:"Chocolates",p:260},{id:"truffle",n:"Truffles",g:"Chocolates",p:320},
+  {id:"almond",n:"Almonds (badam)",g:"Nuts",p:120},{id:"kaju",n:"Cashews (kaju)",g:"Nuts",p:160},{id:"pista",n:"Pistachios (pista)",g:"Nuts",p:260},{id:"peanut",n:"Roasted peanuts",g:"Nuts",p:40},{id:"walnut",n:"Walnuts (akhrot)",g:"Nuts",p:150},{id:"hazel",n:"Hazelnuts",g:"Nuts",p:200},
+  {id:"raisin",n:"Raisins (kishmish)",g:"Dry fruits",p:60},{id:"dates",n:"Dates (khajoor)",g:"Dry fruits",p:90},{id:"figs",n:"Figs (anjeer)",g:"Dry fruits",p:220},{id:"apricot",n:"Apricots (khumani)",g:"Dry fruits",p:140},{id:"cran",n:"Dried cranberries",g:"Dry fruits",p:130}
+];
+var BOXES=[{id:"s",n:"Small",g:300,p:150},{id:"m",n:"Medium",g:500,p:250},{id:"l",n:"Large",g:800,p:400}];
+var BASES=["Chocolates","Nuts","Dry fruits","Mix of all"];
+var bld={base:"Nuts",box:"m",q:{}};
+var REVIEWS=[];
+var fmt=function(n){return "₹"+n.toLocaleString("en-IN")};
+var esc=function(t){return String(t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+var byId=function(id){return HAMPERS.filter(function(h){return h.id===id})[0]||customs[id]};
+var cart={},customs={};
+try{cart=JSON.parse(localStorage.getItem("choco_cart")||"{}")}catch(e){}
+try{customs=JSON.parse(localStorage.getItem("choco_customs")||"{}")}catch(e){}
+function saveCustoms(){try{localStorage.setItem("choco_customs",JSON.stringify(customs))}catch(e){}}
+function saveCart(){try{localStorage.setItem("choco_cart",JSON.stringify(cart))}catch(e){}updateNav()}
+function allReviews(){return REVIEWS}
+function loadReviews(){return fetch("/api/reviews").then(function(r){return r.json()}).then(function(j){if(Array.isArray(j))REVIEWS=j}).catch(function(){})}
+function stars(n){return '<span class="stars" role="img" aria-label="'+n+' out of 5">'+"★".repeat(n)+"☆".repeat(5-n)+'</span>'}
+function count(){return Object.keys(cart).reduce(function(s,k){return s+cart[k]},0)}
+function ctl(id){var q=cart[id]||0;return q?'<span class="qty"><button data-cd="'+id+'" data-d="-1" aria-label="Remove one">\u2212</button><input class="qin" data-qi="'+id+'" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="'+q+'" aria-label="Quantity in cart"><button data-cd="'+id+'" data-d="1" aria-label="Add one">+</button></span>':'<button class="btn" data-add="'+id+'">Add to cart</button>'}
+function refreshCtl(id){var el=document.querySelector('[data-ctl="'+id+'"]');if(!el)return;var inp=el.querySelector("input");if(cart[id]>0&&inp)inp.value=cart[id];else el.innerHTML=ctl(id)}
+function updateNav(){document.getElementById("navcart").textContent="Cart ("+count()+")"}
+
+function art(h,k){
+  var bg=h.c[2],box=h.c[0],acc=h.c[1],o="";
+  for(var r=0;r<2;r++)for(var i=0;i<4;i++){
+    var n=r*4+i,x=46+i*40,y=40+r*34,col=(i+r)%2?acc:bg,t=h.type==="Nuts"?3:h.type==="Dry fruits"?((i+r)%2?1:3):(k+i+r)%3;
+    o+= t==3?'<ellipse class="ch" style="--i:'+n+'" cx="'+(x+14)+'" cy="'+(y+14)+'" rx="15" ry="11" fill="'+col+'"/>':t==1?'<circle class="ch" style="--i:'+n+'" cx="'+(x+14)+'" cy="'+(y+14)+'" r="14" fill="'+col+'"/>'
+       : t==2?'<rect class="ch" style="--i:'+n+'" x="'+x+'" y="'+(y+4)+'" width="32" height="20" rx="4" fill="'+col+'"/>'
+       : '<rect class="ch" style="--i:'+n+'" x="'+x+'" y="'+y+'" width="28" height="28" rx="6" fill="'+col+'"/>';
+  }
+  return '<svg viewBox="0 0 240 144" role="img" aria-label="'+h.name+' illustration"><rect width="240" height="144" fill="'+bg+'" opacity=".35"/>'+
+    '<rect x="30" y="22" width="180" height="100" rx="12" fill="'+box+'"/><rect x="38" y="30" width="164" height="84" rx="8" fill="#000" opacity=".3"/>'+o+
+    '<g class="bow"><path d="M196 112l-22 22M196 112l22 22" stroke="#D9A441" stroke-width="10" stroke-linecap="round"/><circle cx="196" cy="112" r="9" fill="#D9A441"/></g></svg>';
+}
+function card(h){
+  var k=HAMPERS.indexOf(h);
+  return '<article class="card">'+art(h,k)+'<h3><a class="stretch" href="#/product/'+h.id+'">'+h.name+'</a></h3><small class="tag">'+h.cat+' - '+h.type+'</small><p>'+h.desc+'</p>'+
+    '<div class="foot"><span class="price">'+fmt(h.price)+'</span><span data-ctl="'+h.id+'">'+ctl(h.id)+'</span></div></article>';
+}
+function revCard(r){var h=byId(r.h)||{name:"a hamper"};return '<div class="rev">'+stars(r.s)+'<p>'+esc(r.t)+'</p><small>'+esc(r.n)+' on <a href="#/product/'+r.h+'">'+h.name+'</a></small></div>'}
+
+function gridHTML(){var l=HAMPERS.filter(function(h){return(filt.cat==="All"||h.cat===filt.cat)&&(filt.type==="All"||h.type===filt.type)});return l.length?l.map(card).join(""):'<p class="empty">No hampers match these filters. Try another occasion or type.</p>'}
+function chipRow(list,key,label){return '<div class="chips" role="group" aria-label="'+label+'"><span class="cl">'+label+'</span>'+list.map(function(c){return '<button class="chip" data-f="'+key+'" data-v="'+c+'" aria-pressed="'+(filt[key]===c)+'">'+c+'</button>'}).join("")+'</div>'}
+function filterHTML(){return chipRow(CATS,"cat","Occasion")+chipRow(TYPES,"type","Made with")}
+function home(){
+  var rv=allReviews().slice(0,3).map(revCard).join("");
+  var rvSec=rv?'<section><div class="wrap"><h2>What customers say</h2><p class="sub"></p><div class="grid">'+rv+'</div><p><a class="btn alt" href="#/reviews">All reviews</a></p></div></section>':'';
+  return '<div class="wrap"><header class="hero"><h1 class="brand">Chocoholics</h1><p>Hand-packed chocolate gift hampers for birthdays, weddings, Diwali and every “just because.”</p>'+
+   '<div class="row"><a class="btn" href="#hampers-list" data-scroll="1">Choose a hamper</a><a class="btn alt" href="#/reviews">Read reviews</a></div></header></div>'+
+   '<div class="strip"><div class="wrap"><span>Custom messages on every hamper</span><span>Bulk orders for weddings and offices</span><span>Delivery across India</span></div></div>'+
+   '<section id="hampers-list"><div class="wrap"><h2>Our hampers</h2><p class="sub">Every hamper comes in a reusable gift box with a handwritten card.</p><div id="filters">'+filterHTML()+'</div><div class="grid" id="grid">'+gridHTML()+'</div></div></section>'+
+   '<section><div class="wrap"><div class="order" style="max-width:none"><h2>Make it your own</h2><p class="sub">Pick chocolates, nuts or dry fruits by weight and fill a box your way.</p><a class="btn" href="#/build">Build your own hamper</a></div></div></section>'+
+   rvSec;
+}
+function product(id){
+  var h=byId(id); if(!h||h.custom) return notFound();
+  var k=HAMPERS.indexOf(h), rs=allReviews().filter(function(r){return r.h===id});
+  var avg=rs.length?Math.round(rs.reduce(function(s,r){return s+r.s},0)/rs.length):0;
+  return '<div class="wrap"><a class="crumb" href="#/">← All hampers</a><div class="pdp"><div>'+art(h,k)+'</div><div><h1>'+h.name+'</h1><p class="tag">'+h.cat+' - '+h.type+'</p>'+
+   (rs.length?'<p>'+stars(avg)+' <a href="#/reviews">'+rs.length+' review'+(rs.length>1?'s':'')+'</a></p>':'')+
+   '<p class="price" style="font-size:28px;margin:8px 0">'+fmt(h.price)+'</p><p>'+h.desc+'</p><h3 style="font-size:20px;margin-top:18px">What’s inside</h3><ul>'+h.items.map(function(i){return '<li>'+i+'</li>'}).join("")+'</ul>'+
+   '<span class="qty"><button data-q="-1" aria-label="Fewer">−</button><b id="q">1</b><button data-q="1" aria-label="More">+</button></span><button class="btn" data-addq="'+h.id+'">Add to cart</button>'+
+   '<p id="added" class="ok" role="status"></p></div></div></div>'+
+   '<section><div class="wrap"><h2>Reviews</h2><p class="sub"></p><div class="stack">'+(rs.map(revCard).join("")||'<p class="empty">No reviews for this hamper yet.</p>')+'</div><p><a class="btn alt" href="#/reviews">Write a review</a></p></div></section>';
+}
+function reviews(){
+  var opts=HAMPERS.map(function(h){return '<option value="'+h.id+'">'+h.name+'</option>'}).join("");
+  return '<div class="wrap"><section><h2>Reviews</h2><p class="sub">What customers say about our hampers.</p><div class="two"><div class="stack">'+(allReviews().map(revCard).join("")||'<p class="empty">No reviews yet. Be the first to write one.</p>')+'</div>'+
+   '<div class="order"><h3 style="font-size:24px">Write a review</h3><label for="rh">Hamper</label><select id="rh">'+opts+'</select>'+
+   '<label for="rn">Your name</label><input id="rn" autocomplete="name"><label for="rs">Rating</label><select id="rs"><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select>'+
+   '<label for="rt">Your review</label><textarea id="rt" rows="4"></textarea><p id="rerr" role="alert" class="empty" style="min-height:1.5em"></p><button class="btn" id="rsub">Post review</button>'+
+   '<p class="ok" style="font-size:14px">New reviews appear after we approve them.</p></div></div></section></div>';
+}
+function cartPage(){
+  var pf=(me&&myOrders[0])||{},nt=notice;notice="";
+  var ids=Object.keys(cart).filter(function(i){return byId(i)}),total=0,li="";
+  ids.forEach(function(i){var h=byId(i),q=cart[i];total+=q*h.price;
+    li+='<li><span>'+(h.custom?'<b>'+esc(h.name)+'</b>':'<a href="#/product/'+i+'">'+h.name+'</a>')+'<br><small>'+fmt(h.price)+' each'+(h.custom?' - '+esc(h.items.join(", ")):'')+'</small></span><span class="qty"><button data-cq="'+i+'" data-d="-1" aria-label="Fewer '+h.name+'">−</button><b>'+q+'</b><button data-cq="'+i+'" data-d="1" aria-label="More '+h.name+'">+</button></span><span>'+fmt(q*h.price)+'</span><button data-rm="'+i+'" aria-label="Remove '+esc(h.name)+' from cart">Remove</button></li>'});
+  if(!ids.length) return '<div class="wrap"><section><h2>Your cart</h2><p class="sub">Your cart is empty. Add a hamper to start.</p><a class="btn" href="#/">Browse hampers</a></section></div>';
+  return '<div class="wrap"><section><h2>Checkout</h2>'+(nt?'<p class="ok" role="status"><b>'+esc(nt)+'</b></p>':'')+'<p class="sub">Review your hampers, then place your order. We confirm the price and delivery date on WhatsApp.'+(me?'':' Have an account? <a href="#/login" data-after="#/cart">Log in</a> to see your past orders.')+'</p><div class="two"><div class="order" style="max-width:none"><ul>'+li+'</ul><div class="total"><span>Total</span><span>'+fmt(total)+'</span></div><p style="margin:14px 0 0"><button class="btn alt" data-clear="1">Clear cart</button></p></div>'+
+   '<div class="order"><label for="nm">Your name</label><input id="nm" autocomplete="name" value="'+esc(pf.customer_name||"")+'"><label for="ph">Phone number</label><input id="ph" type="tel" autocomplete="tel" value="'+esc(pf.phone||"")+'">'+
+   '<label for="ad">Delivery address and pincode</label><textarea id="ad" rows="3" autocomplete="street-address">'+esc(pf.address||"")+'</textarea><label for="msg">Message for the gift card (optional)</label><input id="msg">'+
+   '<p id="err" role="alert" class="empty" style="min-height:1.5em"></p><button class="btn" id="send">Place order</button></div></div></section></div>';
+}
+function bTotals(){var g=0,p=0;ING.forEach(function(i){var q=bld.q[i.id]||0;g+=q*100;p+=q*i.p});var b=BOXES.filter(function(x){return x.id===bld.box})[0];return{g:g,items:p,box:b,total:p+b.p}}
+function bSum(){var t=bTotals(),pct=Math.min(100,Math.round(t.g/t.box.g*100)),ls=ING.filter(function(i){return bld.q[i.id]}).map(function(i){return '<li><span>'+i.n+' '+bld.q[i.id]*100+' g</span><span>'+fmt(bld.q[i.id]*i.p)+'</span></li>'}).join("");
+  return '<div class="bar" role="img" aria-label="Box '+pct+' percent full"><i style="width:'+pct+'%"></i></div><p>'+t.g+' of '+t.box.g+' g filled</p><ul>'+(ls||'<li class="empty">Nothing added yet.</li>')+'<li><span>'+t.box.n+' gift box</span><span>'+fmt(t.box.p)+'</span></li></ul><div class="total"><span>Total</span><span>'+fmt(t.total)+'</span></div>'}
+function build(){
+  var groups=bld.base==="Mix of all"?["Chocolates","Nuts","Dry fruits"]:[bld.base];
+  var rows=groups.map(function(g){return '<h3 style="font-size:22px;margin:18px 0 6px">'+g+'</h3>'+ING.filter(function(i){return i.g===g}).map(function(i){return '<div class="ing"><span>'+i.n+'<br><small>'+fmt(i.p)+' per 100 g</small></span><span class="qty"><button data-bq="'+i.id+'" data-d="-1" aria-label="Less '+i.n+'">\u2212</button><b data-bv="'+i.id+'">'+(bld.q[i.id]||0)+'</b><button data-bq="'+i.id+'" data-d="1" aria-label="More '+i.n+'">+</button></span></div>'}).join("")}).join("");
+  return '<div class="wrap"><section><h2>Build your own hamper</h2><p class="sub">Choose what it is based on, pick a box size, then add items in steps of 100 g.</p><div class="build"><div>'+
+   '<div class="chips" role="group" aria-label="Based on"><span class="cl">Based on</span>'+BASES.map(function(b){return '<button class="chip" data-bb="'+b+'" aria-pressed="'+(bld.base===b)+'">'+b+'</button>'}).join("")+'</div>'+
+   '<div class="chips" role="group" aria-label="Box size"><span class="cl">Box size</span>'+BOXES.map(function(x){return '<button class="chip" data-bx="'+x.id+'" aria-pressed="'+(bld.box===x.id)+'">'+x.n+', '+x.g+' g, '+fmt(x.p)+'</button>'}).join("")+'</div>'+rows+'</div>'+
+   '<div class="order"><h3 style="font-size:24px;margin-bottom:12px">Your hamper</h3><div id="bsum">'+bSum()+'</div><p id="berr" role="alert" class="empty" style="min-height:1.5em"></p><button class="btn" id="badd">Add to cart</button></div></div></section></div>'}
+function notFound(){return '<div class="wrap"><section><h2>Page not found</h2><p class="sub">That page does not exist.</p><a class="btn" href="#/">Back to hampers</a></section></div>'}
+
+function showCart(){document.getElementById("app").innerHTML=cartPage();var f=document.querySelector("#app [data-rm]")||document.querySelector("#app .btn");if(f)f.focus()}
+function removeLine(id){delete cart[id];if(customs[id]){delete customs[id];saveCustoms()}saveCart();showCart()}
+function confirmBox(title,text,ok,fn){
+  var prev=document.activeElement,o=document.createElement("div");o.className="modal";
+  o.innerHTML='<div class="mbox" role="alertdialog" aria-modal="true" aria-labelledby="mt" aria-describedby="md"><h3 id="mt">'+esc(title)+'</h3><p id="md">'+esc(text)+'</p><div class="mrow"><button class="btn alt" data-mc="0">Cancel</button><button class="btn" data-mc="1">'+esc(ok)+'</button></div></div>';
+  function close(){document.removeEventListener("keydown",key);o.remove();if(prev&&prev.isConnected)prev.focus()}
+  function key(e){if(e.key==="Escape"){close();return}if(e.key==="Tab"){var b=o.querySelectorAll("button"),f=b[0],l=b[b.length-1];if(e.shiftKey&&document.activeElement===f){e.preventDefault();l.focus()}else if(!e.shiftKey&&document.activeElement===l){e.preventDefault();f.focus()}}}
+  o.addEventListener("click",function(e){e.stopPropagation();var v=e.target.getAttribute("data-mc");if(v==="1"){close();fn()}else if(v==="0"||e.target===o)close()});
+  document.addEventListener("keydown",key);document.body.appendChild(o);o.querySelector('[data-mc="0"]').focus();
+}
+function askRemove(id){var h=byId(id);confirmBox("Remove this custom hamper?",h.name+" will be removed from your cart. You will need to build it again.","Remove",function(){removeLine(id)})}
+var lastOrder=null,notice="",me=null,myOrders=[],afterLogin="#/account",authMode="login";
+function req(method,path,body){return fetch(path,{method:method,headers:body?{"Content-Type":"application/json"}:{},body:body?JSON.stringify(body):undefined}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok)throw new Error(j.error||"Request failed");return j})})}
+function loadOrders(){if(!me){myOrders=[];return Promise.resolve()}return req("GET","/api/my/orders").then(function(j){myOrders=j}).catch(function(){})}
+function loadMe(){return req("GET","/api/me").then(function(j){me=j.user}).then(loadOrders).catch(function(){})}
+function updateAcct(){var a=document.getElementById("navacct");a.textContent=me?me.username:"Log in";a.setAttribute("href",me?"#/account":"#/login")}
+var orderNo=function(id){return "CH-"+String(id).padStart(4,"0")};
+var val=function(id){return document.getElementById(id).value};
+function loginPage(){
+  var reg=authMode==="register";
+  return '<div class="wrap"><section><h2>'+(reg?'Create account':'Log in')+'</h2><div class="chips" role="group" aria-label="Choose"><button class="chip" data-am="login" aria-pressed="'+!reg+'">Log in</button><button class="chip" data-am="register" aria-pressed="'+reg+'">Create account</button></div>'+
+   '<div class="order"><form id="authform" novalidate><label for="au">Username</label><input id="au" autocomplete="username" autocapitalize="none"><label for="ap">Password</label><input id="ap" type="password" autocomplete="'+(reg?'new-password':'current-password')+'">'+
+   (reg?'<label for="ac">Confirm password</label><input id="ac" type="password" autocomplete="new-password"><p class="ok" style="font-size:14px">Username: 3 to 30 letters, numbers, dots, dashes or underscores. Password: at least 8 characters.</p>':'')+
+   '<p id="aerr" role="alert" class="empty" style="min-height:1.5em"></p><button class="btn" type="submit" id="asub">'+(reg?'Create account':'Log in')+'</button></form></div></section></div>'}
+function orderCard(o){
+  var li=o.items.map(function(i){return '<li><span>'+i.qty+' x '+esc(i.name)+(i.details?'<br><small>'+esc(i.details.join(", "))+'</small>':'')+'</span></li>'}).join("");
+  return '<div class="order" style="max-width:none"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b>'+orderNo(o.id)+'</b><small>'+new Date(o.created_at).toLocaleDateString("en-IN")+' - '+esc(o.status)+'</small></div><ul style="margin-top:10px">'+li+'</ul><div class="total"><span>Total</span><span>'+fmt(o.total_rupees)+'</span></div><button class="btn" data-rep="'+o.id+'">Repeat order</button></div>'}
+function accountPage(){
+  return '<div class="wrap"><section><h2>Hi, '+esc(me.username)+'</h2><p class="sub"><button class="btn alt" data-logout="1">Log out</button></p><div class="two"><div><h3 style="font-size:26px;margin-bottom:12px">Your orders</h3><div class="stack">'+
+   (myOrders.length?myOrders.map(orderCard).join(""):'<p class="empty">You have not placed any orders yet.</p>')+'</div></div>'+
+   '<div class="order"><h3 style="font-size:24px;margin-bottom:6px">Change password</h3><form id="pwform" novalidate><label for="cp">Current password</label><input id="cp" type="password" autocomplete="current-password"><label for="np">New password</label><input id="np" type="password" autocomplete="new-password"><label for="np2">Confirm new password</label><input id="np2" type="password" autocomplete="new-password"><p id="perr" role="alert" class="empty" style="min-height:1.5em"></p><button class="btn" type="submit">Change password</button></form></div></div></section></div>'}
+function api(path,body){return fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Request failed");return j})})}
+function thanks(){
+  if(!lastOrder)return '<div class="wrap"><section><h2>Thank you</h2><p class="sub">We have your order and will confirm the delivery date on WhatsApp.</p><a class="btn" href="#/">Back to hampers</a></section></div>';
+  return '<div class="wrap"><section><h2>Order placed</h2><p class="sub">Your order number is <b>'+esc(lastOrder.no)+'</b>. Send the details on WhatsApp so we can confirm the price and delivery date.</p><p><a class="btn" target="_blank" rel="noopener" href="https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(lastOrder.text)+'">Send order on WhatsApp</a> <a class="btn alt" href="#/">Back to hampers</a></p></section></div>'}
+var qty=1;
+function wrapBrand(){document.querySelectorAll(".brand").forEach(function(el){if(el.querySelector("span"))return;el.innerHTML=el.textContent.split("").map(function(c,i){return '<span style="--i:'+i+'">'+c+'</span>'}).join("")})}
+function route(){
+  var p=(location.hash.replace(/^#/,"")||"/").split("/").filter(Boolean),app=document.getElementById("app"),r="home";
+  if(!p.length)app.innerHTML=home();
+  else if(p[0]==="product"){r="";app.innerHTML=product(p[1]);qty=1}
+  else if(p[0]==="reviews"){r="reviews";app.innerHTML=reviews();loadReviews().then(function(){var rt=document.getElementById("rt"),rn=document.getElementById("rn");if(location.hash==="#/reviews"&&rt&&!rt.value&&!rn.value)app.innerHTML=reviews()})}
+  else if(p[0]==="build"){r="build";app.innerHTML=build()}
+  else if(p[0]==="thanks"){r="";app.innerHTML=thanks()}
+  else if(p[0]==="login"){r="account";app.innerHTML=me?accountPage():loginPage()}
+  else if(p[0]==="account"){r="account";if(!me){afterLogin="#/account";app.innerHTML=loginPage()}else{app.innerHTML=accountPage();loadOrders().then(function(){var c=document.getElementById("cp");if(location.hash==="#/account"&&c&&!c.value&&!document.getElementById("np").value)app.innerHTML=accountPage()})}}
+  else if(p[0]==="cart"){r="cart";app.innerHTML=cartPage()}
+  else{r="";app.innerHTML=notFound()}
+  document.querySelectorAll("nav a.l").forEach(function(a){if(a.getAttribute("data-r")===r)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  document.title=(p[0]==="product"&&byId(p[1])?byId(p[1]).name+" – ":"")+"Chocoholics";
+  wrapBrand();updateNav();window.scrollTo(0,0);
+}
+document.addEventListener("click",function(e){
+  var t=e.target,d=function(n){return t.getAttribute(n)};
+  if(d("data-rm")){var ri=d("data-rm");if(byId(ri)&&byId(ri).custom)askRemove(ri);else removeLine(ri);return}
+  if(d("data-clear")){confirmBox("Clear your cart?","Every hamper will be removed from your cart, including any custom hampers you built.","Clear cart",function(){cart={};customs={};saveCustoms();saveCart();showCart()});return}
+  if(d("data-after")){afterLogin=d("data-after")}
+  if(d("data-am")){authMode=d("data-am");document.getElementById("app").innerHTML=loginPage();return}
+  if(d("data-logout")){req("POST","/api/logout").catch(function(){}).then(function(){me=null;myOrders=[];updateAcct();location.hash="#/"});return}
+  if(d("data-rep")){
+    var oid=Number(d("data-rep")),o=myOrders.filter(function(x){return x.id===oid})[0];if(!o)return;
+    var added=0,skipped=0;
+    o.items.forEach(function(it,ix){
+      if(it.sku!=="custom"){var hh=byId(it.sku);if(hh&&!hh.custom){cart[it.sku]=Math.min(99,(cart[it.sku]||0)+it.qty);added++}else skipped++;return}
+      var rc=it.recipe,bx=rc&&BOXES.filter(function(b){return b.id===rc.box})[0];if(!bx){skipped++;return}
+      var price=bx.p,names=[],good=true;
+      Object.keys(rc.q).forEach(function(k){var g=ING.filter(function(x){return x.id===k})[0];if(!g){good=false;return}price+=rc.q[k]*g.p;names.push(g.n+" "+rc.q[k]*100+" g")});
+      if(!good){skipped++;return}
+      var cid="custom-"+Date.now()+"-"+ix;customs[cid]={id:cid,custom:true,name:it.name,price:price,items:names,base:rc.base,box:rc.box,q:rc.q};cart[cid]=it.qty;added++});
+    saveCustoms();saveCart();
+    notice="Items from order "+orderNo(oid)+" are in your cart. Change anything you like, then place your order."+(skipped?" "+skipped+" item"+(skipped>1?"s are":" is")+" no longer available.":"");
+    location.hash="#/cart";return}
+  if(d("data-f")){filt[d("data-f")]=d("data-v");document.getElementById("filters").innerHTML=filterHTML();document.getElementById("grid").innerHTML=gridHTML();return}
+  if(d("data-bb")){bld.base=d("data-bb");document.getElementById("app").innerHTML=build();return}
+  if(d("data-bx")){var nb=BOXES.filter(function(x){return x.id===d("data-bx")})[0];if(bTotals().g>nb.g){document.getElementById("berr").textContent="Remove some items before choosing a smaller box.";return}bld.box=nb.id;document.getElementById("app").innerHTML=build();return}
+  if(d("data-bq")){var bi=d("data-bq"),bt=bTotals(),bn=(bld.q[bi]||0)+Number(d("data-d")),be=document.getElementById("berr");if(bn<0)return;if(Number(d("data-d"))>0&&bt.g+100>bt.box.g){be.textContent="This box is full. Choose a bigger box or remove something.";return}be.textContent="";if(bn===0)delete bld.q[bi];else bld.q[bi]=bn;document.querySelector('[data-bv="'+bi+'"]').textContent=bn;document.getElementById("bsum").innerHTML=bSum();return}
+  if(t.id==="badd"){var ft=bTotals();if(!ft.g){document.getElementById("berr").textContent="Add at least one item.";return}
+    var cid="custom-"+Date.now();customs[cid]={id:cid,custom:true,name:"Custom "+(bld.base==="Mix of all"?"mixed":bld.base.toLowerCase())+" hamper ("+ft.box.n+" box)",price:ft.total,items:ING.filter(function(i){return bld.q[i.id]}).map(function(i){return i.n+" "+bld.q[i.id]*100+" g"}),base:bld.base,box:ft.box.id,q:JSON.parse(JSON.stringify(bld.q))};
+    saveCustoms();cart[cid]=1;saveCart();bld.q={};location.hash="#/cart";return}
+  if(d("data-scroll")){e.preventDefault();var el=document.getElementById("hampers-list");if(el)el.scrollIntoView();return}
+  if(d("data-add")){var a1=d("data-add");cart[a1]=1;saveCart();refreshCtl(a1);var pl=document.querySelector('[data-ctl="'+a1+'"] [data-d="1"]');if(pl)pl.focus();return}
+  if(d("data-cd")){var c1=d("data-cd"),n1=Math.min(99,(cart[c1]||0)+Number(d("data-d")));if(n1<=0)delete cart[c1];else cart[c1]=n1;saveCart();refreshCtl(c1);if(n1<=0){var ab=document.querySelector('[data-ctl="'+c1+'"] button');if(ab)ab.focus()}return}
+  if(d("data-q")){qty=Math.max(1,qty+Number(d("data-q")));document.getElementById("q").textContent=qty;return}
+  if(d("data-addq")){var id=d("data-addq");cart[id]=(cart[id]||0)+qty;saveCart();document.getElementById("added").innerHTML=qty+" added. <a href=\"#/cart\">Go to checkout</a>";return}
+  if(d("data-cq")){var i=d("data-cq"),nq=(cart[i]||0)+Number(d("data-d"));if(nq<=0&&byId(i)&&byId(i).custom){askRemove(i);return}if(nq<=0)delete cart[i];else cart[i]=nq;saveCart();document.getElementById("app").innerHTML=cartPage();return}
+  if(t.id==="rsub"){
+    var n=document.getElementById("rn").value.trim(),x=document.getElementById("rt").value.trim(),er=document.getElementById("rerr");
+    if(!n||x.length<5){er.textContent="Enter your name and a review of at least 5 characters.";return}
+    t.disabled=true;er.textContent="Posting...";
+    api("/api/reviews",{h:document.getElementById("rh").value,n:n,s:Number(document.getElementById("rs").value),t:x}).then(function(){
+      document.getElementById("app").innerHTML='<div class="wrap"><section><h2>Thank you</h2><p class="sub">Your review will appear on the site once we approve it.</p><a class="btn" href="#/reviews">Back to reviews</a></section></div>';
+    }).catch(function(e2){er.textContent=e2.message||"Could not post your review. Try again.";t.disabled=false});
+    return}
+  if(t.id==="send"){
+    var er2=document.getElementById("err"),nm=document.getElementById("nm").value.trim(),ph=document.getElementById("ph").value.trim(),ad=document.getElementById("ad").value.trim(),m=document.getElementById("msg").value.trim();
+    if(!nm||!ph||!ad){er2.textContent="Enter your name, phone number and delivery address.";return}
+    var ids=Object.keys(cart).filter(function(i){return byId(i)}),tot=0;
+    var lines=ids.map(function(i){var h=byId(i);tot+=cart[i]*h.price;return cart[i]+" x "+h.name+(h.custom?" ["+h.items.join(", ")+"]":"")+" ("+fmt(cart[i]*h.price)+")"});
+    var items=ids.map(function(i){var h=byId(i);return h.custom?{qty:cart[i],custom:{base:h.base,box:h.box,q:h.q}}:{qty:cart[i],id:i}});
+    t.disabled=true;er2.textContent="Placing your order...";
+    api("/api/orders",{items:items,customer:{name:nm,phone:ph,address:ad,message:m}}).then(function(r){
+      lastOrder={no:r.orderNo,text:"New Chocoholics order "+r.orderNo+"\n"+lines.join("\n")+"\nTotal: "+fmt(r.total)+"\nName: "+nm+"\nPhone: "+ph+"\nAddress: "+ad+(m?"\nCard message: "+m:"")};
+      cart={};customs={};saveCustoms();saveCart();if(me)loadOrders();location.hash="#/thanks";
+    }).catch(function(err){er2.textContent=err.message||"Could not place your order. Try again.";t.disabled=false});
+  }
+});
+document.addEventListener("submit",function(e){
+  var f=e.target;e.preventDefault();
+  if(f.id==="authform"){
+    var er=document.getElementById("aerr"),b=document.getElementById("asub"),u=val("au").trim(),pw=val("ap");
+    if(!u||!pw){er.textContent="Enter your username and password.";return}
+    if(authMode==="register"&&pw!==val("ac")){er.textContent="The passwords do not match.";return}
+    b.disabled=true;er.textContent="";
+    req("POST",authMode==="register"?"/api/register":"/api/login",{username:u,password:pw}).then(function(j){me=j.user;return loadOrders()}).then(function(){updateAcct();var go=afterLogin;afterLogin="#/account";location.hash=go}).catch(function(x){er.textContent=x.message;b.disabled=false});
+  }
+  if(f.id==="pwform"){
+    var pe=document.getElementById("perr"),n1=val("np");
+    if(n1!==val("np2")){pe.className="empty";pe.textContent="The new passwords do not match.";return}
+    req("POST","/api/password",{current:val("cp"),next:n1}).then(function(){pe.className="ok";pe.textContent="Password changed.";["cp","np","np2"].forEach(function(i){document.getElementById(i).value=""})}).catch(function(x){pe.className="empty";pe.textContent=x.message});
+  }
+});
+document.addEventListener("input",function(e){var t=e.target;if(t.getAttribute&&t.getAttribute("data-qi"))t.value=t.value.replace(/\D/g,"")});
+document.addEventListener("change",function(e){var t=e.target,id=t.getAttribute&&t.getAttribute("data-qi");if(!id)return;var v=parseInt(t.value,10);if(isNaN(v))v=cart[id]||0;v=Math.max(0,Math.min(99,v));if(v<=0)delete cart[id];else cart[id]=v;saveCart();refreshCtl(id);if(v<=0){t.value=0}});
+window.addEventListener("hashchange",route);
+Promise.all([loadReviews(),loadMe()]).then(function(){updateAcct();route()});
+</script>
+</body>
+</html>

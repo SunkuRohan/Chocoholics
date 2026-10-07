@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chocoholics admin</title>
+<style>
+body{font:15px/1.5 system-ui,sans-serif;margin:0;padding:20px;background:#F1E2D0;color:#2A1812;max-width:900px}
+h1{margin:0 0 12px}h2{margin:28px 0 4px}button,select,input{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid #7B4528}
+input{display:block;margin:4px 0 12px;width:260px;max-width:100%;background:#fff}
+button{background:#7B4528;color:#fff;cursor:pointer}button.alt{background:transparent;color:#7B4528}
+.o{background:#FBF4EA;border-radius:14px;padding:14px 16px;margin:12px 0}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:700}
+ul{margin:6px 0;padding-left:20px}.m{color:#6b5446}.row{display:flex;gap:8px;margin-top:8px}
+</style></head><body>
+<h1>Chocoholics admin</h1>
+<div id="auth" hidden></div>
+<div id="main" hidden><p><button id="r">Refresh</button> <button class="alt" id="out">Log out</button> <span id="s" class="m"></span></p>
+<h2>Reviews</h2><div id="rv"></div><h2>Orders</h2><div id="l"></div></div>
+<script>
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function api(m,u,b){return fetch(u,{method:m,headers:b?{"Content-Type":"application/json"}:{},body:b?JSON.stringify(b):undefined}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok){var e=new Error(j.error||"Request failed");e.code=j.code;e.status=r.status;throw e}return j})})}
+function show(id){["auth","main"].forEach(function(i){document.getElementById(i).hidden=i!==id})}
+function form(title,fields,btn,onSubmit){var a=document.getElementById("auth");a.textContent="";a.appendChild(el("h2",0,title));var f=el("form"),inp={};
+fields.forEach(function(x){var l=el("label",0,x[1]);l.setAttribute("for",x[0]);var i=el("input");i.id=x[0];i.type=x[2]||"text";i.autocomplete=x[3]||"off";f.appendChild(l);f.appendChild(i);inp[x[0]]=i});
+var er=el("p","m","");er.setAttribute("role","alert");f.appendChild(er);var b=el("button",0,btn);b.type="submit";f.appendChild(b);
+f.onsubmit=function(e){e.preventDefault();er.textContent="";onSubmit(inp,function(m){er.textContent=m})};a.appendChild(f);show("auth")}
+function loginForm(msg){form("Log in",[["u","Username","text","username"],["p","Password","password","current-password"]],"Log in",function(i,err){
+ api("POST","/api/login",{username:i.u.value,password:i.p.value}).then(start).catch(function(e){err(e.message)})});if(msg){var n=el("p","m",msg);document.getElementById("auth").appendChild(n)}}
+function changeForm(){form("Set a new admin password",[["c","Current password","password","current-password"],["n","New password (at least 8 characters)","password","new-password"],["n2","Confirm new password","password","new-password"]],"Change password",function(i,err){
+ if(i.n.value!==i.n2.value){err("The new passwords do not match.");return}
+ api("POST","/api/password",{current:i.c.value,next:i.n.value}).then(start).catch(function(e){err(e.message)})});
+ document.getElementById("auth").appendChild(el("p","m","The default password must be changed before you can use the admin area."))}
+function start(){api("GET","/api/me").then(function(j){var u=j.user;
+ if(!u)return loginForm();
+ if(u.role!=="admin"){api("POST","/api/logout").then(function(){loginForm("That account is not an admin account.")});return}
+ if(u.mustChange)return changeForm();
+ show("main");load()})}
+function orders(rows){var l=document.getElementById("l");l.textContent="";if(!rows.length)l.appendChild(el("p","m","No orders yet."));
+rows.forEach(function(o){var d=el("div","o"),t=el("div","top");
+t.appendChild(el("span",0,"CH-"+String(o.id).padStart(4,"0")+" - "+o.customer_name+" - Rs "+o.total_rupees));
+var sel=el("select");["new","confirmed","delivered","cancelled"].forEach(function(v){var op=el("option",0,v);op.value=v;if(v===o.status)op.selected=true;sel.appendChild(op)});
+sel.onchange=function(){api("PATCH","/api/admin/orders/"+o.id,{status:sel.value})};t.appendChild(sel);d.appendChild(t);
+d.appendChild(el("div","m",new Date(o.created_at).toLocaleString()+" - "+o.phone+(o.account?" - account: "+o.account:" - guest")));d.appendChild(el("div",0,o.address));
+if(o.card_message)d.appendChild(el("div","m","Card: "+o.card_message));
+var u=el("ul");o.items.forEach(function(i){u.appendChild(el("li",0,i.qty+" x "+i.name+(i.details?" ["+i.details.join(", ")+"]":"")+" (Rs "+i.unit_price+" each)"))});d.appendChild(u);l.appendChild(d)})}
+function reviews(rows){var c=document.getElementById("rv");c.textContent="";if(!rows.length)c.appendChild(el("p","m","No reviews yet."));
+rows.forEach(function(r){var d=el("div","o");d.appendChild(el("div","top",r.reviewer_name+" - "+"*".repeat(r.rating)+" - "+r.hamper_id+" - "+r.status));
+d.appendChild(el("p",0,r.body));d.appendChild(el("div","m",new Date(r.created_at).toLocaleString()));
+var row=el("div","row"),b1=el("button",0,r.status==="approved"?"Hide":"Approve"),b2=el("button","alt","Delete");
+b1.onclick=function(){api("PATCH","/api/admin/reviews/"+r.id,{status:r.status==="approved"?"pending":"approved"}).then(load)};
+b2.onclick=function(){if(confirm("Delete this review for good?"))api("DELETE","/api/admin/reviews/"+r.id).then(load)};
+row.appendChild(b1);row.appendChild(b2);d.appendChild(row);c.appendChild(d)})}
+function load(){var s=document.getElementById("s");s.textContent="Loading...";
+Promise.all([api("GET","/api/admin/orders"),api("GET","/api/admin/reviews")]).then(function(x){orders(x[0]);reviews(x[1]);s.textContent=x[0].length+" orders, "+x[1].length+" reviews"}).catch(function(e){if(e.code==="CHANGE_PASSWORD")changeForm();else if(e.status===401)loginForm();else s.textContent=e.message})}
+document.getElementById("r").onclick=load;
+document.getElementById("out").onclick=function(){api("POST","/api/logout").then(function(){loginForm()})};
+start();
+</script></body></html>
