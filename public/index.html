@@ -255,6 +255,7 @@ function askRemove(id){var h=byId(id);confirmBox("Remove this custom hamper?",h.
 var lastOrder=null,notice="",me=null,myOrders=[],afterLogin="#/account",authMode="login";
 function req(method,path,body){return fetch(path,{method:method,headers:body?{"Content-Type":"application/json"}:{},body:body?JSON.stringify(body):undefined}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok)throw new Error(j.error||"Request failed");return j})})}
 function loadOrders(){if(!me){myOrders=[];return Promise.resolve()}return req("GET","/api/my/orders").then(function(j){myOrders=j}).catch(function(){})}
+function loadConfig(){return req("GET","/api/config").then(function(j){if(j.whatsapp)WHATSAPP=j.whatsapp}).catch(function(){})}
 function loadMe(){return req("GET","/api/me").then(function(j){me=j.user}).then(loadOrders).catch(function(){})}
 function updateAcct(){var a=document.getElementById("navacct");a.textContent=me?me.username:"Log in";a.setAttribute("href",me?"#/account":"#/login")}
 var orderNo=function(id){return "CH-"+String(id).padStart(4,"0")};
@@ -365,7 +366,7 @@ document.addEventListener("submit",function(e){
 document.addEventListener("input",function(e){var t=e.target;if(t.getAttribute&&t.getAttribute("data-qi"))t.value=t.value.replace(/\D/g,"")});
 document.addEventListener("change",function(e){var t=e.target,id=t.getAttribute&&t.getAttribute("data-qi");if(!id)return;var v=parseInt(t.value,10);if(isNaN(v))v=cart[id]||0;v=Math.max(0,Math.min(99,v));if(v<=0)delete cart[id];else cart[id]=v;saveCart();refreshCtl(id);if(v<=0){t.value=0}});
 window.addEventListener("hashchange",route);
-Promise.all([loadReviews(),loadMe()]).then(function(){updateAcct();route()});
+Promise.all([loadReviews(),loadMe(),loadConfig()]).then(function(){updateAcct();route()});
 </script>
 </body>
 </html>

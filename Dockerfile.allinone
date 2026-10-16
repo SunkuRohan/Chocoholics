@@ -1,0 +1,17 @@
+# Self-contained image: the app AND its own Postgres in one container.
+# Friends can run it with a single command and no other files.
+FROM postgres:16-alpine
+RUN apk add --no-cache nodejs npm su-exec
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+COPY entrypoint-allinone.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh && adduser -D -H app && chown -R app:app /app
+ENV NODE_ENV=production PORT=3000 PGDATA=/var/lib/postgresql/data SEED_SAMPLE_REVIEWS=true
+VOLUME /var/lib/postgresql/data
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:3000/healthz || exit 1
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD []

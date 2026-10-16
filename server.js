@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const { promisify } = require("util");
 const scrypt = promisify(crypto.scrypt);
 const path = require("path");
+const os = require("os");
 const { Pool } = require("pg");
 const CAT = require("./catalog");
 
@@ -112,12 +113,26 @@ ALTER TABLE orders ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id)
 ALTER TABLE order_items ADD COLUMN IF NOT EXISTS recipe JSONB;
 CREATE INDEX IF NOT EXISTS orders_user_idx ON orders (user_id, created_at DESC);`;
 
-async function initDb() {
-  for (let i = 0; i < 30; i++) {
-    try { await pool.query(SCHEMA); return; }
-    catch (e) { console.log("Waiting for the database..."); await new Promise((r) => setTimeout(r, 2000)); }
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function bootstrap() {
+  for (let i = 0; ; i++) {
+    try { await pool.query("SELECT 1"); break; }
+    catch (e) {
+      if (i >= 29) throw new Error("Database unavailable");
+      console.log("Waiting for the database..."); await sleep(2000);
+    }
   }
-  throw new Error("Database unavailable");
+  // Several replicas can start at once. An advisory lock lets only one at a time create tables and seed data.
+  const lock = await pool.connect();
+  try {
+    await lock.query("SELECT pg_advisory_lock(727274)");
+    await pool.query(SCHEMA);
+    await seedAdmin();
+    await seedReviews();
+  } finally {
+    await lock.query("SELECT pg_advisory_unlock(727274)").catch(() => {});
+    lock.release();
+  }
 }
 
 const app = express();
@@ -126,7 +141,8 @@ app.disable("x-powered-by");
 if (process.env.TRUST_PROXY) app.set("trust proxy", /^\d+$/.test(process.env.TRUST_PROXY) ? Number(process.env.TRUST_PROXY) : process.env.TRUST_PROXY);
 app.use(express.json({ limit: "20kb" }));
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/healthz", (req, res) => res.send("ok"));
+app.get("/api/config", (req, res) => res.json({ whatsapp: String(process.env.WHATSAPP_NUMBER || "").replace(/\D/g, "") || "910000000000" }));
+app.get("/healthz", (req, res) => { res.set("X-Served-By", os.hostname()); res.send("ok"); });
 
 // ---- accounts and sessions ----
 const SESSION_DAYS = 30;
@@ -323,7 +339,7 @@ app.delete("/api/admin/reviews/:id", admin, async (req, res) => {
 // First run: create the admin account with the default password and force a change at first login.
 async function seedAdmin() {
   if ((await pool.query("SELECT 1 FROM users WHERE username = 'admin'")).rowCount) return;
-  await pool.query("INSERT INTO users (username, password_hash, role, must_change_password) VALUES ('admin', $1, 'admin', true)", [await hashPw(process.env.ADMIN_INITIAL_PASSWORD || "admin")]);
+  await pool.query("INSERT INTO users (username, password_hash, role, must_change_password) VALUES ('admin', $1, 'admin', true) ON CONFLICT (username) DO NOTHING", [await hashPw(process.env.ADMIN_INITIAL_PASSWORD || "admin")]);
   console.warn("Created admin account (username: admin). Log in at /admin.html and change the password.");
 }
 
@@ -342,5 +358,5 @@ async function seedReviews() {
   for (const r of rows) await pool.query("INSERT INTO reviews (hamper_id, reviewer_name, rating, body, status) VALUES ($1,$2,$3,$4,'approved')", r);
 }
 
-initDb().then(seedAdmin).then(seedReviews).then(() => app.listen(process.env.PORT || 3000, () => console.log("Chocoholics running")))
+bootstrap().then(() => app.listen(process.env.PORT || 3000, () => console.log("Chocoholics running")))
   .catch((e) => { console.error(e); process.exit(1); });

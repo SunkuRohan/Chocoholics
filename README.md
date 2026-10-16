@@ -41,6 +41,36 @@ waits until it is healthy, and prints the URLs. It is safe to run again.
 - Optional, for HTTPS with a domain: `docker-compose.prod.yml` and `Caddyfile`
 
 ## Notes
-- Sample prices and sample reviews are placeholders. The WhatsApp number is a placeholder near the top of the script in `public/index.html`.
+- Sample prices and sample reviews are placeholders. The WhatsApp number defaults to a placeholder: set the `WHATSAPP_NUMBER` environment variable.
 - Orders, accounts and reviews live only in the Postgres volume on that instance. Run `./backup.sh` before you delete anything.
 - There is no forgot-password email flow.
+
+## Share the app as one Docker image (for friends)
+`Dockerfile.allinone` builds a self-contained image: the app plus its own Postgres in one container.
+Anyone with Docker can run it with one command and no other files:
+
+    docker run -d --name chocoholics -p 3000:3000 \
+      -v chocoholics-data:/var/lib/postgresql/data \
+      -e WHATSAPP_NUMBER=91XXXXXXXXXX \
+      <dockerhub-username>/chocoholics:latest
+
+Then open http://localhost:3000. Admin: /admin.html, first login `admin` / `admin` (a new password is forced).
+- `-v chocoholics-data:...` keeps orders, accounts and reviews when the container is recreated. Without it the data is lost with the container.
+- `WHATSAPP_NUMBER` (digits with country code) is where orders are sent on WhatsApp. `SEED_SAMPLE_REVIEWS=false` removes the demo reviews.
+- To use your own Postgres instead, add `-e DATABASE_URL=postgres://user:pass@host:5432/dbname` and the built-in database is skipped.
+
+Build and publish it (manual):
+
+    docker build -f Dockerfile.allinone -t <dockerhub-username>/chocoholics:latest -t <dockerhub-username>/chocoholics:1.0.0 .
+    docker login -u <dockerhub-username>
+    docker push <dockerhub-username>/chocoholics:latest
+    docker push <dockerhub-username>/chocoholics:1.0.0
+
+The normal `Dockerfile` (app only) is still what `docker-compose.yml`, the Swarm stack and Jenkins use.
+
+## CI/CD practice (Jenkins on separate EC2 instances)
+- `Jenkinsfile`: checkout, build and test, SonarQube, quality gate, build image, Trivy scan, push to Nexus, deploy stack, verify, email.
+- `docker-stack.yml`: Docker Swarm stack, 3 app replicas (one per node) plus Postgres on the manager.
+- `sonar-project.properties`: SonarQube settings.
+- `infra/bootstrap.sh <role>`: installs what each instance needs (jenkins-controller, jenkins-agent, sonarqube, nexus, swarm-node).
+- `infra/insecure-registry.sh`: lets a Docker host use the Nexus registry over HTTP (practice only).

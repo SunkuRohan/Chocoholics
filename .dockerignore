@@ -5,3 +5,9 @@ backups
 test
 .github
 *.md
+infra
+Jenkinsfile
+docker-stack.yml
+sonar-project.properties
+coverage
+trivy-reports

@@ -14,3 +14,4 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: docker build -t chocoholics:ci .
+      - run: docker build -f Dockerfile.allinone -t chocoholics:allinone .
